@@ -8,8 +8,8 @@ class UserRepository {
   async findByUserEmail(email) {
     return User.findOne({
       where: {
-        email
-      }
+        email,
+      },
     });
   }
 }

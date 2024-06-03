@@ -1,4 +1,5 @@
 import Quote from "../models/QuoteModel.js";
+import User from "../models/UsersModel.js";
 
 class QuoteRepository {
   async create(quote) {
@@ -6,6 +7,9 @@ class QuoteRepository {
   }
   async findAllByUserId(userId) {
     return Quote.findOne({
+      include: [{
+        model: User
+      }],
       where: {
         userId
       }
