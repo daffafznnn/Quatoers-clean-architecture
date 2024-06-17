@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import db from "../config/database.js";
+import { db } from "../../database/ConnectSql.js";
 import User from "./UsersModel.js";
 
 const { DataTypes } = Sequelize;
@@ -36,6 +36,6 @@ const Quote = db.define(
 );
 
 User.hasMany(Quote);
-Quote.belongsTo(User, { foreignKey: 'userId' });
+Quote.belongsTo(User, { foreignKey: "userId" });
 
-export default Quote
+export default Quote;

@@ -1,4 +1,4 @@
-import QuoteRepository from "../repositories/QuoteRepository.js";
+import QuoteRepository from "../repositories/implementations/sql/QuoteRepository.js";
 
 class QuoteService {
   async createQuote(userId, content, res) {

@@ -1,4 +1,4 @@
-import QuoteService from "../services/QuoteService.js";
+import QuoteService from "../../../services/QuoteService.js";
 
 class QuoteController{
   async createQuote(req, res) {

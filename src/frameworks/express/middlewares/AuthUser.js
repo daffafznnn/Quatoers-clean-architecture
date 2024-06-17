@@ -1,8 +1,12 @@
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import User from "../models/UsersModel.js";
+import jwt from "jsonwebtoken";
+import UserRepositoryNoSQL from "../../../repositories/implementations/nosql/UserRepository.js";
+import UserRepositorySQL from "../../../repositories/implementations/sql/UserRepository.js";
 
 dotenv.config();
+
+const userRepository =
+  process.env.DATABASE === "sql" ? UserRepositorySQL : UserRepositoryNoSQL;
 
 export const verifyUser = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -20,17 +24,15 @@ export const verifyUser = async (req, res, next) => {
     }
 
     try {
-      const user = await User.findOne({
-        where: { id: decodedToken.userId },
-      });
+      const user = await userRepository.findByUserId(decodedToken.userId);
       if (!user) {
         return res.status(404).json({ msg: "User not found" });
       }
 
-        req.userId = user.id;
-        req.role = user.role;
-        req.email = user.email;
-        next();
+      req.userId = user.id;
+      req.role = user.role;
+      req.email = user.email;
+      next();
     } catch (error) {
       console.error(error);
       res.status(500).json({ msg: "Server error" });

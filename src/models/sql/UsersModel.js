@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import db from "../config/database.js";
+import { db } from "../../database/ConnectSql.js";
 
 const { DataTypes } = Sequelize;
 
@@ -29,7 +29,7 @@ const User = db.define(
       allowNull: true,
     },
     role: {
-      type: DataTypes.ENUM("admin", "member")
+      type: DataTypes.ENUM("admin", "member"),
     },
     refreshToken: {
       type: DataTypes.TEXT,
